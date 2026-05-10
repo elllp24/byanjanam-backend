@@ -1,0 +1,38 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
+
+const packageRoutes = require("./routes/packageRoutes");
+
+const app = express();
+
+app.use("/uploads", express.static("uploads"));
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/packages", packageRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Byanjanam Backend Running");
+});
+
+const PORT = process.env.PORT || 5000;
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+
+  console.log("MongoDB Connected");
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+
+})
+.catch((err) => {
+
+  console.log("Mongo Error:");
+  console.log(err.message);
+
+});
