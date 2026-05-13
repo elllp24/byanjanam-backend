@@ -17,16 +17,11 @@ const packageSchema = new mongoose.Schema({
     required: true,
   },
 
-  image: {
-    type: String,
-    required: true,
-  },
-
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-
+}, {
+  timestamps: true,
 });
 
-module.exports = mongoose.model("Package", packageSchema);
+module.exports = mongoose.model(
+  "Package",
+  packageSchema
+);
